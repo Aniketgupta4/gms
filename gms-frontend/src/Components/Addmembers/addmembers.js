@@ -22,6 +22,8 @@ const Addmembers = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const BASE_URL = "https://gms-1-t3u4.onrender.com";
+
   const handleOnChange = (event, name) => {
     setInputField({ ...inputField, [name]: event.target.value })
   }
@@ -49,7 +51,7 @@ const Addmembers = () => {
 
   const fetchMemberShip = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/plans/get-membership", { withCredentials: true });
+      const res = await axios.get(`${BASE_URL}/plans/get-membership`, { withCredentials: true });
       setMembershipList(res.data.membership);
       if (res.data.membership.length > 0) {
         let firstPlan = res.data.membership[0]._id;
@@ -72,7 +74,7 @@ const Addmembers = () => {
 
     setIsSubmitting(true);
     try {
-      await axios.post("http://localhost:4000/members/register-member", inputField, { withCredentials: true });
+      await axios.post(`${BASE_URL}/members/register-member`, inputField, { withCredentials: true });
       toast.success("Member Registered Successfully!");
       setTimeout(() => {
         window.location.reload();

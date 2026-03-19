@@ -13,6 +13,8 @@ import Addmembers from '../../Components/Addmembers/addmembers';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 
+const BASE_URL = "https://gms-1-t3u4.onrender.com";
+
 const Member = () => {
   const [addMembership, setAddmembership] = useState(false);
   const [addMember, setAddMember] = useState(false);
@@ -33,7 +35,7 @@ const Member = () => {
 
   const fetchData = async (skip, limits) => {
     try {
-      const res = await axios.get(`http://localhost:4000/members/all-member?skip=${skip}&limit=${limits}`, { withCredentials: true });
+      const res = await axios.get(`${BASE_URL}/members/all-member?skip=${skip}&limit=${limits}`, { withCredentials: true });
       let totalData = res.data.totalMember;
       setTotalData(totalData);
       setData(res.data.members);
@@ -75,7 +77,7 @@ const Member = () => {
     if (search !== "") {
       setIsSearchModeOn(true);
       try {
-        const res = await axios.get(`http://localhost:4000/members/searched-members?searchTerm=${search}`, { withCredentials: true });
+        const res = await axios.get(`${BASE_URL}/members/searched-members?searchTerm=${search}`, { withCredentials: true });
         setData(res.data.members);
         setTotalData(res.data.totalMembers);
       } catch (err) {

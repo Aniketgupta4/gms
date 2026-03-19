@@ -11,6 +11,7 @@ const ForgotPassword = () => {
   const [inputField, setInputField] = useState({ email: "", otp: "", newPassword: "" });
   const [loader, setLoader] = useState(false);
 
+  const BASE_URL = "https://gms-1-t3u4.onrender.com";
   const handleOnChange = (event, name) => {
     setInputField({ ...inputField, [name]: event.target.value });
   };
@@ -29,7 +30,7 @@ const ForgotPassword = () => {
     if (!inputField.email) return toast.warning("Please enter your email");
     setLoader(true);
     try {
-      const res = await axios.post("http://localhost:4000/auth/reset-password/sendOtp", { email: inputField.email });
+      const res = await axios.post(`${BASE_URL}/auth/reset-password/sendOtp`, { email: inputField.email });
       setEmailSubmit(true);
       setContentValue("Verify OTP");
       toast.success(res.data.message);
@@ -44,7 +45,7 @@ const ForgotPassword = () => {
     if (!inputField.otp) return toast.warning("Please enter the OTP");
     setLoader(true);
     try {
-      const res = await axios.post("http://localhost:4000/auth/reset-password/checkOtp", { email: inputField.email, otp: inputField.otp });
+      const res = await axios.post(`${BASE_URL}/auth/reset-password/checkOtp`, { email: inputField.email, otp: inputField.otp });
       setOtpValidate(true);
       setContentValue("Update Password");
       toast.success(res.data.message);
@@ -59,7 +60,7 @@ const ForgotPassword = () => {
     if (!inputField.newPassword) return toast.warning("Enter your new password");
     setLoader(true);
     try {
-      const res = await axios.post("http://localhost:4000/auth/reset-password", { email: inputField.email, newPassword: inputField.newPassword });
+      const res = await axios.post(`${BASE_URL}/auth/reset-password`, { email: inputField.email, newPassword: inputField.newPassword });
       toast.success(res.data.message);
       // Optional: Redirect to login after success
     } catch (err) {

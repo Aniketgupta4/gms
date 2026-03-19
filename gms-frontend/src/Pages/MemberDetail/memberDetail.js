@@ -6,6 +6,8 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { FiUser, FiPhone, FiMapPin, FiCalendar, FiClock, FiActivity, FiRefreshCw, FiCheckCircle } from 'react-icons/fi';
 
+const BASE_URL = "https://gms-1-t3u4.onrender.com";
+
 const MemberDetail = () => {
   const [status, setStatus] = useState("Pending");
   const [renew, setRenew] = useState(false);
@@ -21,7 +23,7 @@ const MemberDetail = () => {
   const handleSwitchButton = async () => {
     let statuss = status === "Active" ? "Pending" : "Active";
     try {
-      await axios.post(`http://localhost:4000/members/change-status/${id}`, { status: statuss }, { withCredentials: true });
+      await axios.post(`${BASE_URL}/members/change-status/${id}`, { status: statuss }, { withCredentials: true });
       setStatus(statuss);
       toast.success(`Status updated to ${statuss}`);
     } catch (err) {
@@ -33,7 +35,7 @@ const MemberDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/members/get-member/${id}`, { withCredentials: true });
+        const res = await axios.get(`${BASE_URL}/members/get-member/${id}`, { withCredentials: true });
         setData(res.data.member);
         setStatus(res.data.member.status);
       } catch (err) {
@@ -43,7 +45,7 @@ const MemberDetail = () => {
 
     const fetchMembershipPlans = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/plans/get-membership`, { withCredentials: true });
+        const res = await axios.get(`${BASE_URL}/plans/get-membership`, { withCredentials: true });
         setMembership(res.data.membership);
         if (res.data.membership.length > 0) setPlanMember(res.data.membership[0]._id);
       } catch (err) {

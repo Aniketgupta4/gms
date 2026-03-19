@@ -9,13 +9,15 @@ const Addmembership = ({ handleClose }) => {
   const [membership, setMembership] = useState([])
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const BASE_URL = "https://gms-1-t3u4.onrender.com";
+
   const handleOnChange = (event, name) => {
     setInputField({ ...inputField, [name]: event.target.value })
   }
 
   const fechMembership = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/plans/get-membership", { withCredentials: true });
+      const res = await axios.get(`${BASE_URL}/plans/get-membership`, { withCredentials: true });
       setMembership(res.data.membership);
     } catch (err) {
       toast.error("Failed to load plans");
@@ -31,7 +33,7 @@ const Addmembership = ({ handleClose }) => {
     
     setIsSubmitting(true);
     try {
-      const res = await axios.post("http://localhost:4000/plans/add-membership", inputField, { withCredentials: true });
+      const res = await axios.post(`${BASE_URL}/plans/add-membership`, inputField, { withCredentials: true });
       toast.success(res.data.message || "Plan Added!");
       fechMembership(); // List refresh
       setInputField({ months: "", price: "" }); // Reset inputs

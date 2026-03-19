@@ -13,6 +13,7 @@ const SignUp = () => {
   const [loaderImage, setLoaderImage] = useState(false);
   const [registering, setRegistering] = useState(false);
   
+  const BASE_URL = "https://gms-1-t3u4.onrender.com";
   const [inputField, setInputField] = useState({
     gymName: "",
     email: "",
@@ -66,7 +67,7 @@ const SignUp = () => {
 
     setRegistering(true);
     try {
-      const res = await axios.post("http://localhost:4000/auth/register", inputField);
+      const res = await axios.post(`${BASE_URL}/auth/register`, inputField);
       toast.success(`🚀 ${gymName} Registered Successfully!`, {
         position: "top-center",
         autoClose: 5000,

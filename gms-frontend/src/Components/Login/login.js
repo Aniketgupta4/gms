@@ -9,6 +9,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const BASE_URL = "https://gms-1-t3u4.onrender.com";
   const handleLogin = async () => {
     if (!loginField.userName || !loginField.password) {
       return toast.error("Please fill all fields");
@@ -16,7 +17,7 @@ const Login = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:4000/auth/login", loginField, { withCredentials: true });
+      const res = await axios.post(`${BASE_URL}/auth/login`, loginField, { withCredentials: true });
       const userData = res.data.data;
       
       localStorage.setItem('gymName', userData.gymName);

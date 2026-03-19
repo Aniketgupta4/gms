@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const BASE_URL = "https://gms-1-t3u4.onrender.com";
+
 const getMonthlyJoined = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/members/monthly-member', { withCredentials: true });
+        const response = await axios.get(`${BASE_URL}/members/monthly-member`, { withCredentials: true });
         console.log(response)
         return response.data;
     } catch (error) {
@@ -14,7 +16,7 @@ const getMonthlyJoined = async () => {
 
 const fourToSevenDaysExpire = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/members/within-4-7-expiring', { withCredentials: true });
+        const response = await axios.get(`${BASE_URL}/members/within-4-7-expiring`, { withCredentials: true });
         console.log(response)
         return response.data;
     } catch (error) {
@@ -27,7 +29,7 @@ const fourToSevenDaysExpire = async () => {
 
 const threeDayExpire = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/members/within-3-days-expiring', { withCredentials: true });
+        const response = await axios.get(`${BASE_URL}/members/within-3-days-expiring`, { withCredentials: true });
         console.log(response)
         return response.data;
     } catch (error) {
@@ -39,7 +41,7 @@ const threeDayExpire = async () => {
 
 const expired = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/members/expired-member', { withCredentials: true });
+        const response = await axios.get(`${BASE_URL}/members/expired-member`, { withCredentials: true });
         console.log(response)
         return response.data;
     } catch (error) {
@@ -53,7 +55,7 @@ const expired = async () => {
 
 const inActiveMembers = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/members/inactive-member', { withCredentials: true });
+        const response = await axios.get(`${BASE_URL}/members/inactive-member`, { withCredentials: true });
         console.log(response)
         return response.data;
     } catch (error) {
