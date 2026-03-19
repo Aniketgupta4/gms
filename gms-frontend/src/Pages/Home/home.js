@@ -238,4 +238,3 @@ const Home = () => {
 };
 
 export default Home;
-// GYMPRO_ADMIN_2026
