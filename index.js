@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const path = require('path'); // 👈 Path module import karo
+const path = require('path');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 4000; // 👈 Render default port 10000 bhi de sakta hai
+const PORT = process.env.PORT || 4000;
 
-// 🌐 CORS: Production mein localhost kaam nahi karega
+// 🌐 CORS: Production mein dynamic frontend URL allow karo
 app.use(cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:3000', 
     credentials: true
@@ -15,6 +15,8 @@ app.use(cors({
 
 app.use(cookieParser());
 app.use(express.json());
+
+// Database Connection
 require('./DBConn/conn');
 
 // 🛣️ API Routes
@@ -28,22 +30,26 @@ app.use('/members', MemberRoutes);
 
 // -------------------------- DEPLOYMENT SETTINGS --------------------------
 
-// 1. Frontend folder path define karo (gms-frontend ke andar build/dist folder)
 const __dirname1 = path.resolve();
 
+// Render par NODE_ENV default "production" hota hai
 if (process.env.NODE_ENV === "production") {
-  // Static folder point karo (CRA ke liye 'build', Vite ke liye 'dist')
-  app.use(express.static(path.join(__dirname1, "/gms-frontend/build")));
+    
+    // 1. Static Folder ko point karo (Extra '/' hata diya hai path.join se)
+    app.use(express.static(path.join(__dirname1, "gms-frontend", "build")));
 
-  // Kisi bhi aur route par index.html serve karo
-  app.get("(.*)", (req, res) => {
-    res.sendFile(path.resolve(__dirname1, "gms-frontend", "build", "index.html"));
-  });
+    /* 2. FIX: Express 5.0 ke liye Wildcard Route badla hai.
+       "(.*)" ki jagah "/:path*" use karein taaki crash na ho.
+    */
+    app.get("/:path*", (req, res) => {
+        res.sendFile(path.resolve(__dirname1, "gms-frontend", "build", "index.html"));
+    });
+
 } else {
-  // Local development ke liye default route
-  app.get("/", (req, res) => {
-    res.send("Gym Management API is running...");
-  });
+    // Local development ke liye default route
+    app.get("/", (req, res) => {
+        res.send("Gym Management API is running locally...");
+    });
 }
 
 // -------------------------------------------------------------------------
