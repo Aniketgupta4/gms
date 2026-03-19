@@ -109,6 +109,7 @@ exports.sendOtp = async (req, res) => {
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
+          console.log("EMAIL ERROR:", error);
           res.status(500).json({ error: "Server Error", errorMsg: error });
         } else {
           res.status(200).json({
