@@ -34,11 +34,11 @@ const __dirname1 = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
 
-    // 🔹 Serve frontend build
+    // 🔹 Serve React build
     app.use(express.static(path.join(__dirname1, "gms-frontend", "build")));
 
-    // 🔥 FIXED: Catch-all route (IMPORTANT)
-    app.get("/*", (req, res) => {
+    // 🔥 FINAL FIX (Express 5 safe)
+    app.get(/.*/, (req, res) => {
         res.sendFile(
             path.resolve(__dirname1, "gms-frontend", "build", "index.html")
         );
@@ -46,7 +46,6 @@ if (process.env.NODE_ENV === "production") {
 
 } else {
 
-    // Local route
     app.get("/", (req, res) => {
         res.send("Gym Management API is running locally...");
     });
