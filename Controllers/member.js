@@ -344,3 +344,20 @@ exports.updateMemberPlan = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 }
+
+
+
+// Controllers/member.js ke andar check karo ye likha hai ya nahi:
+
+exports.getMemberByMobile = async (req, res) => {
+    try {
+        const { mobile } = req.params;
+        const member = await Member.findOne({ mobileNo: mobile }).populate('membership');
+        if (!member) {
+            return res.status(404).json({ success: false, message: "Member nahi mila" });
+        }
+        res.status(200).json({ success: true, member });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
