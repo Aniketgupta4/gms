@@ -7,10 +7,21 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 4000;
 
-// 🌐 CORS Config
+// ✅ CORS FIX (multi-origin support)
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://gms-2-o9mt.onrender.com"
+];
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-    credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
 
 app.use(cookieParser());
@@ -37,7 +48,7 @@ if (process.env.NODE_ENV === "production") {
     // 🔹 Serve React build
     app.use(express.static(path.join(__dirname1, "gms-frontend", "build")));
 
-    // 🔥 FINAL FIX (Express 5 safe)
+    // 🔥 Express 5 FIX (no crash)
     app.get(/.*/, (req, res) => {
         res.sendFile(
             path.resolve(__dirname1, "gms-frontend", "build", "index.html")
