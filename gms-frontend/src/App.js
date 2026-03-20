@@ -8,6 +8,7 @@ import Member from './Pages/Member/member';
 import GeneralUser from './Pages/GeneralUser/generalUser';
 import MemberDetail from './Pages/MemberDetail/memberDetail';
 import 'react-toastify/dist/ReactToastify.css';
+import Billing from './Pages/Billing/Billing';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
         <Route path='/member' element={<Member/>} />
         <Route path='/specific/:page' element={<GeneralUser/>}></Route>
         <Route path='/member/:id' element={<MemberDetail/>}></Route>
+        <Route path="/billing" element={<Billing />} />
       </Routes>
     </div>
   );
