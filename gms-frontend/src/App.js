@@ -8,8 +8,6 @@ import Member from './Pages/Member/member';
 import GeneralUser from './Pages/GeneralUser/generalUser';
 import MemberDetail from './Pages/MemberDetail/memberDetail';
 import 'react-toastify/dist/ReactToastify.css';
-import Billing from './Pages/Billing/Billing';
-
 function App() {
 
   const navigate = useNavigate();
