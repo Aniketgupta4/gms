@@ -88,11 +88,8 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SENDER_PASSWORD,
   },
   tls: {
-    rejectUnauthorized: false,
-    minVersion: "TLSv1.2"
-  },
-  connectionTimeout: 10000, // 10 seconds mein timeout kar dega (loader ruk jayega)
-  greetingTimeout: 5000,
+    rejectUnauthorized: false
+  }
 });
 
 exports.sendOtp = async (req, res) => {
@@ -114,30 +111,22 @@ exports.sendOtp = async (req, res) => {
     await gym.save();
 
     const mailOptions = {
-      from: process.env.SENDER_EMAIL, // 👈 process.env use karo hardcode ki jagah
+      from: process.env.SENDER_EMAIL,
       to: email,
       subject: "Password Reset OTP | Elite Gym",
       text: `Your OTP for password reset is: ${token}. This is valid for 1 hour.`,
     };
 
-    // 🔥 Modern Async/Await way (No Callback)
-    // Isse loader ghumna band ho jayega kyunki response turant jayega
-    try {
-      await transporter.sendMail(mailOptions);
-      return res.status(200).json({
-        message: "OTP sent to email successfully!",
-      });
-    } catch (mailErr) {
-      console.error("NODEMAILER ERROR:", mailErr);
-      return res.status(500).json({ 
-        error: "Email Service Error", 
-        details: mailErr.message 
-      });
-    }
+// 🔥 IS LINE KO DHYAN SE DEKHO (No callback, pure await)
+    await transporter.sendMail(mailOptions);
+
+    // Response send karna zaroori hai taaki loader ruk jaye
+    return res.status(200).json({ message: "OTP sent to email successfully" });
 
   } catch (err) {
-    console.error("SERVER ERROR:", err);
-    res.status(500).json({ message: "Server Error" });
+    console.error("OTP ERROR:", err);
+    // ⚠️ Agar error aaya toh 500 status bhej rahe hain taaki frontend ko pata chale
+    return res.status(500).json({ error: "Email service failed", details: err.message });
   }
 };
 
