@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 import MemberCard from '../../Components/MemberCard/memberCard';
 import { getMonthlyJoined, threeDayExpire, expired, fourToSevenDaysExpire, inActiveMembers } from './data';
-import { FiUsers, FiArrowLeft, FiFilter } from 'react-icons/fi'; // Sleek icons
+import { FiUsers, FiArrowLeft, FiFilter } from 'react-icons/fi';
 
 const GeneralUser = () => {
   const [header, setHeader] = useState("");
@@ -47,8 +46,8 @@ const GeneralUser = () => {
   }
 
   return (
-    /* 🔷 Offset for Sidebar (lg:ml-72) and Responsive Padding */
-    <div className='flex-1 min-h-screen bg-[#f8fafc] lg:ml-72 p-4 md:p-10 transition-all duration-300'>
+    /* 🛠️ FIX 1: added w-full and overflow-x-hidden to prevent the side-scroll */
+    <div className='flex-1 min-h-screen bg-[#f8fafc] lg:ml-72 p-4 md:p-10 transition-all duration-300 w-full lg:max-w-[calc(100%-18rem)] overflow-x-hidden'>
       
       {/* 🔷 TOP NAVIGATION BAR */}
       <div className='bg-[#0f172a] flex items-center justify-between w-full text-white rounded-[2rem] p-4 md:p-6 shadow-2xl mb-10 border border-slate-800 relative overflow-hidden group'>
@@ -87,14 +86,16 @@ const GeneralUser = () => {
       </div>
 
       {/* 🔷 MEMBER DIRECTORY GRID */}
-      <div className={`bg-white/50 backdrop-blur-sm p-6 md:p-8 rounded-[3rem] border border-slate-100 min-h-[500px] transition-all`}>
+      {/* 🛠️ FIX 2: added w-full here too */}
+      <div className={`bg-white/50 backdrop-blur-sm p-6 md:p-8 rounded-[3rem] border border-slate-100 min-h-[500px] w-full transition-all`}>
         {loading ? (
           <div className="flex flex-col items-center justify-center h-64 gap-4">
              <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Syncing Data...</p>
           </div>
         ) : (
-          <div className='grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
+          /* 🛠️ FIX 3: Adjusted grid to be more cautious with space */
+          <div className='grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3'>
             {data.length > 0 ? (
               data.map((item, index) => (
                 <div key={index} className="animate-in fade-in slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${index * 50}ms` }}>
@@ -111,11 +112,13 @@ const GeneralUser = () => {
       </div>
 
       <style>{`
-        /* Scrollbar styling for a clean look */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+        
+        /* 🛠️ EXTRA SAFETY: Global reset for horizontal scroll */
+        body { overflow-x: hidden !important; width: 100%; }
       `}</style>
 
     </div>
