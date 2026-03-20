@@ -37,7 +37,6 @@ function App() {
         <Route path='/member' element={<Member/>} />
         <Route path='/specific/:page' element={<GeneralUser/>}></Route>
         <Route path='/member/:id' element={<MemberDetail/>}></Route>
-        <Route path="/billing" element={<Billing />} />
       </Routes>
     </div>
   );

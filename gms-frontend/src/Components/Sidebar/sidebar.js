@@ -32,8 +32,7 @@ const Sidebar = () => {
 
   const navLinks = [
     { name: "Dashboard", path: "/dashboard", icon: <HomeIcon /> },
-    { name: "Members", path: "/member", icon: <GroupIcon /> },
-    { name: "Quick Bill", path: "/billing", icon: <FiPrinter /> }, // 👈 Billing Page Link added
+    { name: "Members", path: "/member", icon: <GroupIcon /> }
   ];
 
   return (
