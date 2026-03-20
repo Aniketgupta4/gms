@@ -13,7 +13,7 @@ import Addmembers from '../../Components/Addmembers/addmembers';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 
-const BASE_URL = "https://gms-1-t3u4.onrender.com";
+const BASE_URL = "https://gys-aniket-gupta.onrender.com";
 
 const Member = () => {
   const [addMembership, setAddmembership] = useState(false);

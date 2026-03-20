@@ -6,7 +6,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { FiUser, FiPhone, FiMapPin, FiCalendar, FiClock, FiActivity, FiRefreshCw, FiCheckCircle } from 'react-icons/fi';
 
-const BASE_URL = "https://gms-1-t3u4.onrender.com";
+const BASE_URL = "https://gys-aniket-gupta.onrender.com";
 
 const MemberDetail = () => {
   const [status, setStatus] = useState("Pending");

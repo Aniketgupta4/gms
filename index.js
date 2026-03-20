@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 4000;
 // ✅ CORS FIX (multi-origin support)
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://gms-2-o9mt.onrender.com"
+  "https://gys-aniket-gupta.onrender.com"
 ];
 
 app.use(cors({

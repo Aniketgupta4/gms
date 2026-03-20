@@ -13,7 +13,7 @@ const SignUp = () => {
   const [loaderImage, setLoaderImage] = useState(false);
   const [registering, setRegistering] = useState(false);
   
-  const BASE_URL = "https://gms-1-t3u4.onrender.com";
+  const BASE_URL = "https://gys-aniket-gupta.onrender.com";
   const [inputField, setInputField] = useState({
     gymName: "",
     email: "",
