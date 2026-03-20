@@ -78,54 +78,63 @@ exports.login = async (req, res) => {
 
 
 
-
 const transporter = nodemailer.createTransport({
   service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // Render ke liye zaroori hai
   auth: {
     user: process.env.SENDER_EMAIL,
     pass: process.env.SENDER_PASSWORD,
   },
+  tls: {
+    rejectUnauthorized: false // Connection drop hone se bachayega
+  }
 });
-
 
 exports.sendOtp = async (req, res) => {
   try {
     const { email } = req.body;
     const gym = await Gym.findOne({ email });
-    if (gym) {
-      const buffer = crypto.randomBytes(4);
-      const token = (buffer.readUInt32BE(0) % 900000) + 100000; // Generate a 6-digit OTP
-      gym.resetPasswordToken = token;
-      gym.resetPasswordExpires = Date.now() + 3600000; // 1 hours expiry date
 
-      await gym.save();
+    if (!gym) {
+      return res.status(400).json({ error: "Email not found" });
+    }
 
-      const mailOptions = {
-        from: "gangasinghgond04@gmail.com",
-        to: email,
-        subject: "Password Reset OTP",
-        text: `Your OTP for password reset is: ${token}`,
-      };
+    // OTP Generation
+    const buffer = crypto.randomBytes(4);
+    const token = (buffer.readUInt32BE(0) % 900000) + 100000; 
+    
+    gym.resetPasswordToken = token;
+    gym.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log("EMAIL ERROR:", error);
-          res.status(500).json({ error: "Server Error", errorMsg: error });
-        } else {
-          res.status(200).json({
-            message: "OTP sent to email",
-          });
-        }
+    await gym.save();
+
+    const mailOptions = {
+      from: process.env.SENDER_EMAIL, // 👈 process.env use karo hardcode ki jagah
+      to: email,
+      subject: "Password Reset OTP | Elite Gym",
+      text: `Your OTP for password reset is: ${token}. This is valid for 1 hour.`,
+    };
+
+    // 🔥 Modern Async/Await way (No Callback)
+    // Isse loader ghumna band ho jayega kyunki response turant jayega
+    try {
+      await transporter.sendMail(mailOptions);
+      return res.status(200).json({
+        message: "OTP sent to email successfully!",
       });
-    } else {
-      res.status(400).json({
-        error: "Email not found",
+    } catch (mailErr) {
+      console.error("NODEMAILER ERROR:", mailErr);
+      return res.status(500).json({ 
+        error: "Email Service Error", 
+        details: mailErr.message 
       });
     }
+
   } catch (err) {
-    res.status(500).json({
-      message: "Server Error",
-    });
+    console.error("SERVER ERROR:", err);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
