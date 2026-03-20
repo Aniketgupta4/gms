@@ -48,17 +48,12 @@ if (process.env.NODE_ENV === "production") {
     // 🔹 Serve React build
     app.use(express.static(path.join(__dirname1, "gms-frontend", "build")));
 
-    app.get("*", (req, res) => {
-  if (
-    !req.path.startsWith("/auth") &&
-    !req.path.startsWith("/plans") &&
-    !req.path.startsWith("/members")
-  ) {
-    res.sendFile(
-      path.resolve(__dirname1, "gms-frontend", "build", "index.html")
-    );
-  }
-});
+    // 🔥 Express 5 FIX (no crash)
+    app.get(/.*/, (req, res) => {
+        res.sendFile(
+            path.resolve(__dirname1, "gms-frontend", "build", "index.html")
+        );
+    });
 
 } else {
 
