@@ -74,7 +74,7 @@ const MemberDetail = () => {
     setIsUpdating(true);
     try {
       await axios.put(
-        `http://localhost:4000/members/update-member-plan/${id}`, 
+        `${BASE_URL}/members/update-member-plan/${id}`, 
         { membership: planMember }, 
         { withCredentials: true }
       );
