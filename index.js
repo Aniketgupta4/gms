@@ -7,20 +7,9 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 4000;
 
-// ✅ CORS FIX (multi-origin support)
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://gys-aniket-gupta.onrender.com"
-];
-
+// ✅ CORS FIX (clean & stable)
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
   credentials: true
 }));
 
@@ -45,21 +34,27 @@ const __dirname1 = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
 
-    // 🔹 Serve React build
-    app.use(express.static(path.join(__dirname1, "gms-frontend", "build")));
+  // 🔹 Serve React build
+  app.use(express.static(path.join(__dirname1, "gms-frontend", "build")));
 
-    // 🔥 Express 5 FIX (no crash)
-    app.get(/.*/, (req, res) => {
-        res.sendFile(
-            path.resolve(__dirname1, "gms-frontend", "build", "index.html")
-        );
-    });
+  // 🔥 SAFE FALLBACK (IMPORTANT FIX)
+  app.get("*", (req, res) => {
+    if (
+      !req.originalUrl.startsWith("/auth") &&
+      !req.originalUrl.startsWith("/plans") &&
+      !req.originalUrl.startsWith("/members")
+    ) {
+      res.sendFile(
+        path.resolve(__dirname1, "gms-frontend", "build", "index.html")
+      );
+    }
+  });
 
 } else {
 
-    app.get("/", (req, res) => {
-        res.send("Gym Management API is running locally...");
-    });
+  app.get("/", (req, res) => {
+    res.send("Gym Management API is running locally...");
+  });
 
 }
 
@@ -67,5 +62,5 @@ if (process.env.NODE_ENV === "production") {
 
 // 🚀 Start Server
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`🚀 Server is running on port ${PORT}`);
 });
