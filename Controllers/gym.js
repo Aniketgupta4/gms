@@ -82,14 +82,17 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
   port: 465,
-  secure: true, // Render ke liye zaroori hai
+  secure: true, 
   auth: {
     user: process.env.SENDER_EMAIL,
     pass: process.env.SENDER_PASSWORD,
   },
   tls: {
-    rejectUnauthorized: false // Connection drop hone se bachayega
-  }
+    rejectUnauthorized: false,
+    minVersion: "TLSv1.2"
+  },
+  connectionTimeout: 10000, // 10 seconds mein timeout kar dega (loader ruk jayega)
+  greetingTimeout: 5000,
 });
 
 exports.sendOtp = async (req, res) => {
