@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const path = require('path');
+const gymbotRoutes = require("./Routes/gymbot");
 require('dotenv').config();
 
 const PORT = process.env.PORT || 4000;
@@ -31,6 +32,7 @@ const MemberRoutes = require('./Routes/member');
 app.use('/auth', GymRoutes);
 app.use('/plans', MembershipRoutes);
 app.use('/members', MemberRoutes);
+app.use("/api/gymbot", gymbotRoutes);
 
 // -------------------------- DEPLOYMENT SETTINGS --------------------------
 

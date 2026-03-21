@@ -4,7 +4,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { FiPrinter } from 'react-icons/fi'; // Naya icon billing ke liye
+import { FiMessageSquare } from 'react-icons/fi'; // 🔴 Naya icon GymBot ke liye import kiya
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
@@ -30,9 +30,11 @@ const Sidebar = () => {
     navigate("/");
   };
 
+  // 🔴 Naya Route Array mein add kiya "GymBot AI"
   const navLinks = [
     { name: "Dashboard", path: "/dashboard", icon: <HomeIcon /> },
-    { name: "Members", path: "/member", icon: <GroupIcon /> }
+    { name: "Members", path: "/member", icon: <GroupIcon /> },
+    { name: "GymBot AI", path: "/gymbot", icon: <FiMessageSquare size={24} /> } // Added here
   ];
 
   return (
