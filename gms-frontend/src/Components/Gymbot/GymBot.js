@@ -12,7 +12,7 @@ const GymBot = () => {
   const [messages, setMessages] = useState([
     { 
       role: 'bot', 
-      text: '💪 Welcome back to POWER ZONE! Main aapka AI Coach hoon. Workout chart ya Meal plan chahiye? Just ask, let’s crush it!' 
+      text: '💪 Welcome back Gym Owner! Main aapka AI Coach hoon. Workout chart ya Meal plan chahiye? Just ask, let’s crush it!' 
     }
   ]);
   const [input, setInput] = useState('');
