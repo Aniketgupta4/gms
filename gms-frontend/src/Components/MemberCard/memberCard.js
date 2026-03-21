@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 // Fi icons zyada sleek aur modern lagte hain
 import { FiPhone, FiCalendar, FiArrowRight } from "react-icons/fi"; 
 
-const MemberCard = ({ item }) => {
+const MemberCard = ({ item,isJoinedPortal }) => {
   // Check if membership is expired for visual color coding
   const isExpired = new Date(item?.nextBillDate) < new Date();
 
   return (
     <Link 
       to={`/member/${item?._id}`} 
+      state={{ showActions: isJoinedPortal }}
       className="group relative bg-white rounded-[2.5rem] p-6 border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-indigo-100 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col items-center w-full"
     >
       {/* 🔷 Status Badge (Top-Right) */}

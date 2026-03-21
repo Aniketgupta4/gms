@@ -178,7 +178,7 @@ const Member = () => {
            {data.length > 0 ? (
              <div className='grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'>
                 {data.map((item, index) => (
-                  <MemberCard key={index} item={item}/>
+                  <MemberCard key={index} item={item} isJoinedPortal={true}/>
                 ))}
              </div>
            ) : (

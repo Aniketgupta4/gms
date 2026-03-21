@@ -98,7 +98,7 @@ const GeneralUser = () => {
             <div className='grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'>
               {data.length > 0 ? (
                 data.map((item, index) => (
-                  <div key={index} className="animate-in fade-in slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${index * 50}ms` }}>
+                  <div key={index} isJoinedPortal={false} className="animate-in fade-in slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${index * 50}ms` }}>
                     <MemberCard item={item} />
                   </div>
                 ))
