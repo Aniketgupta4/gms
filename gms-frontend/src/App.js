@@ -8,8 +8,7 @@ import Member from './Pages/Member/member';
 import GeneralUser from './Pages/GeneralUser/generalUser';
 import MemberDetail from './Pages/MemberDetail/memberDetail';
 import 'react-toastify/dist/ReactToastify.css';
-import GymBot from './Components/GymBot/GymBot';
-
+import GymBot from './Components/Gymbot/GymBot';
 
 function App() {
 
