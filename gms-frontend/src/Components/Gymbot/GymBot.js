@@ -57,7 +57,7 @@ const GymBot = () => {
         await navigator.share({
           files: [file],
           title: "My Gym Plan",
-          text: "Check out my workout/meal plan from Power Zone AI Coach!"
+          text: "Check out my workout/meal plan from AI Coach!"
         });
       } else {
         toast.info("Sharing not supported on this browser.");
@@ -103,7 +103,7 @@ const GymBot = () => {
               <h1 className="text-lg md:text-2xl font-black italic uppercase tracking-widest text-white leading-none">AI Coach</h1>
               <p className="text-[9px] md:text-[10px] font-bold text-indigo-400 uppercase tracking-[0.2em] mt-1 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                Power Zone Active
+                AI Coach Active
               </p>
             </div>
           </div>
