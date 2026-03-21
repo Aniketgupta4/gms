@@ -8,6 +8,8 @@ import Member from './Pages/Member/member';
 import GeneralUser from './Pages/GeneralUser/generalUser';
 import MemberDetail from './Pages/MemberDetail/memberDetail';
 import 'react-toastify/dist/ReactToastify.css';
+import GymBot from './Components/GymBot/GymBot';
+
 function App() {
 
   const navigate = useNavigate();
@@ -35,6 +37,7 @@ function App() {
         <Route path='/member' element={<Member/>} />
         <Route path='/specific/:page' element={<GeneralUser/>}></Route>
         <Route path='/member/:id' element={<MemberDetail/>}></Route>
+        <Route path="/gymbot" element={<GymBot />} />
       </Routes>
     </div>
   );
