@@ -95,7 +95,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setIsMenuOpen(false)} />
         <aside className={`absolute right-0 top-0 h-full w-[300px] bg-white p-8 shadow-2xl transition-transform duration-300 transform ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
           <div className="flex justify-between items-center mb-12">
-            <span className="font-extrabold text-slate-900 text-xl tracking-tight">GymPro.</span>
+            <span className="font-extrabold text-slate-900 text-xl tracking-tight">GYMPRO</span>
             <button onClick={() => setIsMenuOpen(false)} className="p-2 bg-slate-50 rounded-full"><FiX size={20}/></button>
           </div>
           <nav className="flex flex-col gap-6 font-semibold text-slate-600">
