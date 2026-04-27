@@ -114,7 +114,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex justify-between items-center">
           <div className="flex items-center gap-2.5 cursor-pointer group" onClick={() => scrollToSection("hero")}>
             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black shadow-md transition-transform group-hover:scale-105">G</div>
-            <span className="text-xl font-extrabold tracking-tight text-slate-900 uppercase">GymPro.</span>
+            <span className="text-xl font-extrabold tracking-tight text-slate-900 uppercase">GYMPRO</span>
           </div>
           <nav className="hidden md:flex items-center gap-8 font-semibold text-xs text-slate-500 uppercase tracking-widest">
             <span onClick={() => scrollToSection("features")} className="cursor-pointer hover:text-slate-900 transition-colors">Solutions</span>
