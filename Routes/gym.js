@@ -10,5 +10,4 @@ router.post('/reset-password/checkOtp',GymController.checkOtp);
 router.post('/reset-password',GymController.resetPassword);
 router.post('/logout', GymController.logout);
 
-
 module.exports = router;
